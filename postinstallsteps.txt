@@ -1,26 +1,7 @@
 Manual Configuration:
 ====
 
-1) Fractal Art (background)
-   https://github.com/TomSmeets/FractalArt
-   * Create ~/.config/autostart/fractalart.desktop
-
-[Desktop Entry]
-Name=FractalArt
-GenericName=Fractal Art
-Comment=Generate Wallpapers
-Exec=FractalArt
-Terminal=false
-Type=Application
-Categories=Graphics
-
-This will execute the command FractalArt after login.
-
-To set your wallpaper path run:
-
-gsettings set org.gnome.desktop.background picture-uri file://$HOME/.fractalart/wallpaper.bmp
-
-2) Wireguard
+1) Wireguard
   * get wireguard conf file
   * "nmcli connection import type wireguard file thefile.conf"
   * for gnome: manually add and enable extension
@@ -28,5 +9,5 @@ gsettings set org.gnome.desktop.background picture-uri file://$HOME/.fractalart/
     by atareao
     edit the settings and tell it to use nmcli
 
-3) Systray
+2) Systray
   * for gnome: enable the KstatusNotifier extension (already installed)

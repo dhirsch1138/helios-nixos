@@ -8,9 +8,15 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      <home-manager/nixos>
     ];
   # Enable unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Needs home manager channel
+  # https://nix-community.github.io/home-manager/index.html#sec-install-nixos-module
+  # #nix-channel --add https://github.com/nix-community/home-manager/archive/release-21.05.tar.gz home-manager
+  # #nix-channel --update
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -75,6 +81,41 @@
    users.users.david = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager"]; # Enable ‘sudo’ for the user.
+  };
+
+  home-manager.users.david = { pkgs, ... }: {
+    programs.git = {
+      #program installed system wide
+      enable = true;
+      userName = "David Hirsch";
+      userEmail = "dhirsch1138@gmail.com";
+    };
+    
+    home.file = {
+      #Auto run the fractart generation program on login
+      #this puts the generated bmp in
+      # ./fractalart/wallpaper.bmp
+      # the dconf configuration will set that generated bmp
+      # as the current background
+      ".config/autostart/fractalart.desktop" = {
+        text = ''
+          [Desktop Entry]
+          Name=FractalArt
+          GenericName=Fractal Art
+          Comment=Generate Wallpapers
+          Exec=FractalArt
+          Terminal=false
+          Type=Application
+          Categories=Graphics'';
+      };
+    };
+
+    dconf.settings = {
+     #set the background to the generated fractalart bmp
+     "org/gnome/desktop/background" = {
+       "picture-uri" = "/home/david/.fractalart/wallpaper.bmp";
+     };
+    };
   };
  
   # List packages installed in system profile. To search, run:
