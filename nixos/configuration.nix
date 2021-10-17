@@ -85,9 +85,10 @@
 
   home-manager.users.david = { pkgs, ... }: {
     home.packages = with pkgs; [
-      lolcat
       gnomeExtensions.appindicator
+      gnome.gnome-boxes
       gnome.gnome-tweaks 
+      lolcat
     ];
 
     programs.firefox = {
