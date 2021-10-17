@@ -84,6 +84,16 @@
   };
 
   home-manager.users.david = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      lolcat
+      gnomeExtensions.appindicator
+      gnome.gnome-tweaks 
+    ];
+
+    programs.firefox = {
+      enable = true;
+    };
+ 
     programs.git = {
       #program installed system wide
       enable = true;
@@ -123,12 +133,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
-    lolcat
     lynx
-    firefox
-    git
-    gnomeExtensions.appindicator
-    gnome.gnome-tweaks
   ];
 
  #Steam
@@ -180,8 +185,8 @@
   };
  
   #Auto update, yo!
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
+  # system.autoUpgrade.enable = true;
+  # system.autoUpgrade.allowReboot = true;
 
   #Garbage collections
   nix.gc.automatic = true;
